@@ -106,6 +106,7 @@
 
   <script>
     const meses = [
+      "junho-2025",
       "julho-2025",
       "agosto-2025",
       "setembro-2025",
@@ -116,23 +117,30 @@
     ];
 
     const funcionarios = [
-      { id: "marileneoliveira", nome: "MARILENE OLIVEIRA DE ABREU", senha: "senha1", pdfs: {} },
-      { id: "saymabalbino", nome: "SAYMA BALBINO SIQUEIRA DE LIMA", senha: "senha2", pdfs: {} },
-      { id: "antoniaangelica", nome: "ANTONIA ANGELICA OLIVEIRA DA SILVA", senha: "senha3", pdfs: {} },
-      { id: "ketrindenise", nome: "KETRIN DENISE COHN FREITAS", senha: "senha4", pdfs: {} },
-      { id: "aideedasilva", nome: "AIDEE DA SILVA ARAUJO", senha: "senha5", pdfs: {} },
-      { id: "andreamarques", nome: "ANDREA MARQUES PINTO MONTEIRO", senha: "senha6", pdfs: {} },
-      { id: "cleidesilva", nome: "CLEIDE SILVA DOS SANTOS", senha: "senha7", pdfs: {} },
-      { id: "wellington", nome: "WELLINGTON DOS SANTOS FRANCA", senha: "senha8", pdfs: {} },
-      { id: "flavianapereira", nome: "FLAVIANA MARIA PEREIRA DA SILVA", senha: "senha9", pdfs: {} },
-      { id: "soniaaparecida", nome: "SONIA REGINA APARECIDA ABREU FEITOSA", senha: "senha10", pdfs: {} },
-      { id: "yasmimdossantos", nome: "YASMIM DOS SANTOS DE ARAUJO", senha: "senha11", pdfs: {} },
-      { id: "glaucegoncalves", nome: "GLAUCE GONÇALVES", senha: "senha12", pdfs: {} },
-      { id: "yasmimjesus", nome: "YASMIM DE JESUS DUARTE FURTADO NUNES CUNHA", senha: "senha13", pdfs: {} },
-      { id: "luizdiego", nome: "LUIZ DIEGO COSTA BARBOSA", senha: "senha14", pdfs: {} },
-      { id: "clitia", nome: "CLÍTIA MAGALHÃES ALVES", senha: "senha15", pdfs: {} },
-      { id: "gilcelaine", nome: "GILCELAINE FIGUEIRA DA SILVA", senha: "senha16", pdfs: {} },
-      { id: "pedrohenrique", nome: "PEDRO HENRIQUE GONCALVES SANTOS", senha: "senha17", pdfs: {} }
+      { id: "maria", nome: "MARIA HELENA DUARTE DE CARVALHO", senha: "senha1", pdfs: {} },
+      { id: "juan", nome: "JUAN CARLOS FERREIRA", senha: "senha2", pdfs: {} },
+      { id: "alessandra", nome: "ALESSANDRA FERREIRA DA SILVA", senha: "senha3", pdfs: {} },
+      { id: "francielle", nome: "FRANCIELLE DE AZEVEDO RIBEIRO", senha: "senha4", pdfs: {} },
+      { id: "higo", nome: "HIGO FELIPE DE ALMEIDA", senha: "senha5", pdfs: {} },
+      { id: "marcia", nome: "MARCIA DE SOUSA BESERRA", senha: "senha6", pdfs: {} },
+      { id: "mario", nome: "MARIO ELIAS NETO", senha: "senha7", pdfs: {} },
+      { id: "dione", nome: "DIONE RICARDA PEREIRA DIAS", senha: "senha8", pdfs: {} },
+      { id: "jucimara", nome: "JUCIMARA SANTOS MUNIZ", senha: "senha9", pdfs: {} },
+      { id: "rafaela", nome: "RAFAELA MARIA SOARES DE SOUZA", senha: "senha10", pdfs: {} },
+      { id: "david", nome: "DAVID JOSÉ DOS SANTOS DA COSTA", senha: "senha11", pdfs: {} },
+      { id: "fabiana", nome: "FABIANA DOS SANTOS LAMELAS", senha: "senha12", pdfs: {} },
+      { id: "gabriela", nome: "GABRIELA DOS SANTOS RIBEIRO GOMES", senha: "senha13", pdfs: {} },
+      { id: "iasmin", nome: "IASMIN GOMES SANTOS", senha: "senha14", pdfs: {} },
+      { id: "cleyton", nome: "CLEYTON SIQUEIRA SILVA", senha: "senha15", pdfs: {} },
+      { id: "hannah", nome: "HANNAH VICTORIA DE NEGREIROS FREIRE", senha: "senha16", pdfs: {} },
+      { id: "patricia", nome: "PATRÍCIA DIAS", senha: "senha17", pdfs: {} },
+      { id: "bruna", nome: "BRUNA MORAIS DA CONCEIÇÃO", senha: "senha18", pdfs: {} },
+      { id: "cristina", nome: "CRISTINA PEREIRA BARBOSA", senha: "senha19", pdfs: {} },
+      { id: "luis", nome: "LUIS FELIPE DAS NEVES SANTOS", senha: "senha20", pdfs: {} },
+      { id: "thiago", nome: "THIAGO DE SOUZA PEREIRA", senha: "senha21", pdfs: {} },
+      { id: "sabrina", nome: "SABRINA PEREIRA DIAS", senha: "senha22", pdfs: {} },
+      { id: "mariana", nome: "MARIANA LEMES DE MATOS", senha: "senha23", pdfs: {} },
+      { id: "elismara", nome: "ELISMARA DO NASCIMENTO", senha: "senha24", pdfs: {} }
     ];
 
     window.onload = () => {
@@ -143,13 +151,12 @@
         box.className = 'usuario';
 
         const pdfLinksHtml = meses.map(mes => {
-          // Formata o mês para exibir (exemplo: Julho/2025)
           const mesParts = mes.split('-');
           const nomeMes = mesParts[0].charAt(0).toUpperCase() + mesParts[0].slice(1);
           const ano = mesParts[1];
           const mesFormatado = `${nomeMes}/${ano}`;
-
           const linkId = `pdf-${func.id}-${mes}`;
+
           return `<a href="#" id="${linkId}">${mesFormatado}</a>`;
         }).join("<br>");
 
@@ -158,20 +165,18 @@
           <input type="password" id="senha-${func.id}" placeholder="Digite sua senha" />
           <button onclick="verificarSenha('${func.id}')">Acessar</button>
           <div id="link-${func.id}" class="link-pdf">
-             ${pdfLinksHtml}
+            ${pdfLinksHtml}
           </div>
         `;
 
         container.insertBefore(box, document.querySelector('footer'));
 
-        // Ativa ou desativa links dependendo dos PDFs disponíveis
         meses.forEach(mes => {
           const linkEl = document.getElementById(`pdf-${func.id}-${mes}`);
-
           if (func.pdfs[mes]) {
             linkEl.href = `pdfs/botafogo/${func.id}/${mes}.pdf`;
             linkEl.target = "_blank";
-            linkEl.onclick = null; // abre direto
+            linkEl.onclick = null;
           } else {
             linkEl.href = "#";
             linkEl.onclick = (e) => {
