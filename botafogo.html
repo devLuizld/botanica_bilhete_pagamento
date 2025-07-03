@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Botafogo - Contracheques</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/7662/7662689.png" type="image/png">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #e8f5e9;
+      padding: 20px;
+    }
+    header {
+      text-align: center;
+      padding: 20px 0;
+    }
+    header h1 {
+      color: #2e7d32;
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+    header p {
+      color: #4caf50;
+      font-size: 1em;
+    }
+    .usuario {
+      background: #ffffff;
+      padding: 15px;
+      margin: 15px auto;
+      border: 1px solid #c8e6c9;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .usuario strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #2e7d32;
+    }
+    input[type="password"] {
+      padding: 8px;
+      width: 60%;
+      max-width: 200px;
+      border: 1px solid #a5d6a7;
+      border-radius: 5px;
+    }
+    button {
+      padding: 8px 12px;
+      margin-left: 5px;
+      background-color: #43a047;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2e7d32;
+    }
+    .link-pdf {
+      margin-top: 10px;
+      display: none;
+      line-height: 1.8em;
+    }
+    .link-pdf a {
+      display: inline-block;
+      margin: 4px;
+      color: #1b5e20;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #388e3c;
+      font-size: 0.9em;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.6em;
+      }
+      .usuario {
+        padding: 10px;
+      }
+      input[type="password"] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      button {
+        width: 100%;
+        margin-top: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Botafogo</h1>
+    <p>Acesso aos contracheques PDF</p>
+  </header>
+
+  <script>
+    const meses = [
+      "julho-2025",
+      "agosto-2025",
+      "setembro-2025",
+      "outubro-2025",
+      "novembro-2025",
+      "dezembro-2025",
+      "janeiro-2026"
+    ];
+
+    const funcionarios = [
+      { id: "marileneoliveira", nome: "MARILENE OLIVEIRA DE ABREU", senha: "senha1", pdfs: {} },
+      { id: "saymabalbino", nome: "SAYMA BALBINO SIQUEIRA DE LIMA", senha: "senha2", pdfs: {} },
+      { id: "antoniaangelica", nome: "ANTONIA ANGELICA OLIVEIRA DA SILVA", senha: "senha3", pdfs: {} },
+      { id: "ketrindenise", nome: "KETRIN DENISE COHN FREITAS", senha: "senha4", pdfs: {} },
+      { id: "aideedasilva", nome: "AIDEE DA SILVA ARAUJO", senha: "senha5", pdfs: {} },
+      { id: "andreamarques", nome: "ANDREA MARQUES PINTO MONTEIRO", senha: "senha6", pdfs: {} },
+      { id: "cleidesilva", nome: "CLEIDE SILVA DOS SANTOS", senha: "senha7", pdfs: {} },
+      { id: "wellington", nome: "WELLINGTON DOS SANTOS FRANCA", senha: "senha8", pdfs: {} },
+      { id: "flavianapereira", nome: "FLAVIANA MARIA PEREIRA DA SILVA", senha: "senha9", pdfs: {} },
+      { id: "soniaaparecida", nome: "SONIA REGINA APARECIDA ABREU FEITOSA", senha: "senha10", pdfs: {} },
+      { id: "yasmimdossantos", nome: "YASMIM DOS SANTOS DE ARAUJO", senha: "senha11", pdfs: {} },
+      { id: "glaucegoncalves", nome: "GLAUCE GONÇALVES", senha: "senha12", pdfs: {} },
+      { id: "yasmimjesus", nome: "YASMIM DE JESUS DUARTE FURTADO NUNES CUNHA", senha: "senha13", pdfs: {} },
+      { id: "luizdiego", nome: "LUIZ DIEGO COSTA BARBOSA", senha: "senha14", pdfs: {} },
+      { id: "clitia", nome: "CLÍTIA MAGALHÃES ALVES", senha: "senha15", pdfs: {} },
+      { id: "gilcelaine", nome: "GILCELAINE FIGUEIRA DA SILVA", senha: "senha16", pdfs: {} },
+      { id: "pedrohenrique", nome: "PEDRO HENRIQUE GONCALVES SANTOS", senha: "senha17", pdfs: {} }
+    ];
+
+    window.onload = () => {
+      const container = document.body;
+
+      funcionarios.forEach(func => {
+        const box = document.createElement('div');
+        box.className = 'usuario';
+
+        const pdfLinksHtml = meses.map(mes => {
+          // Formata o mês para exibir (exemplo: Julho/2025)
+          const mesParts = mes.split('-');
+          const nomeMes = mesParts[0].charAt(0).toUpperCase() + mesParts[0].slice(1);
+          const ano = mesParts[1];
+          const mesFormatado = `${nomeMes}/${ano}`;
+
+          const linkId = `pdf-${func.id}-${mes}`;
+          return `<a href="#" id="${linkId}">${mesFormatado}</a>`;
+        }).join("<br>");
+
+        box.innerHTML = `
+          <strong>${func.nome}</strong>
+          <input type="password" id="senha-${func.id}" placeholder="Digite sua senha" />
+          <button onclick="verificarSenha('${func.id}')">Acessar</button>
+          <div id="link-${func.id}" class="link-pdf">
+             ${pdfLinksHtml}
+          </div>
+        `;
+
+        container.insertBefore(box, document.querySelector('footer'));
+
+        // Ativa ou desativa links dependendo dos PDFs disponíveis
+        meses.forEach(mes => {
+          const linkEl = document.getElementById(`pdf-${func.id}-${mes}`);
+
+          if (func.pdfs[mes]) {
+            linkEl.href = `pdfs/botafogo/${func.id}/${mes}.pdf`;
+            linkEl.target = "_blank";
+            linkEl.onclick = null; // abre direto
+          } else {
+            linkEl.href = "#";
+            linkEl.onclick = (e) => {
+              e.preventDefault();
+              alert("Indisponível, aguarde!");
+            };
+          }
+        });
+      });
+    };
+
+    function verificarSenha(id) {
+      const func = funcionarios.find(f => f.id === id);
+      const senhaDigitada = document.getElementById(`senha-${id}`).value;
+
+      if (func && senhaDigitada === func.senha) {
+        document.getElementById(`link-${id}`).style.display = "block";
+      } else {
+        alert("Senha incorreta.");
+      }
+    }
+  </script>
+
+  <footer>
+    <p>&copy; 2025 - Botânica Bistrô</p>
+  </footer>
+</body>
+</html>
